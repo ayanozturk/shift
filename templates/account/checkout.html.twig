@@ -1,0 +1,25 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    <script src="https://js.chargebee.com/v2/chargebee.js" data-cb-site="{{ siteName }}" ></script>
+{% endblock %}
+
+{% block body %}
+
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Checkout</h3>
+            </div>
+        </div>
+
+        <a href="javascript:void(0)" data-cb-type="checkout" data-cb-plan-id="{{ planName }}" >
+            Subscribe
+        </a>
+
+        <div class="clearfix"></div>
+    </div>
+
+{% endblock %}
