@@ -2,6 +2,10 @@ index:
     path: /
     controller: App\Controller\DefaultController::index
 
+create-account:
+    path: /account/create
+    controller: App\Controller\Account\Onboarding::createAccount
+
 checkout:
-    path: /checkout
+    path: /account/checkout
     controller: App\Controller\Account\Onboarding::checkout
