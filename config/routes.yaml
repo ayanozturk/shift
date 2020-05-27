@@ -9,3 +9,10 @@ create-account:
 checkout:
     path: /account/checkout
     controller: App\Controller\Account\Onboarding::checkout
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+logout:
+    path: /logout
