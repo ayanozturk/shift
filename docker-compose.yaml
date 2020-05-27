@@ -14,10 +14,9 @@ services:
       APP_SECRET: qwerty123
 
   database:
-    image: mysql:5
+    image: mariadb:10.1.44
     ports:
       - "3309:3306"
     environment:
       MYSQL_ROOT_PASSWORD: mypassword
       MYSQL_DATABASE: app
-

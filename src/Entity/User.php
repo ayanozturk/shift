@@ -39,7 +39,7 @@ class User implements UserInterface
     public string $password;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=190, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
