@@ -2,44 +2,75 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * Class User
+ *
+ * @ORM\Entity
+ * @UniqueEntity(fields="email", message="Email already taken")
+ * @UniqueEntity(fields="username", message="Username already taken")
  */
-class User
+class User implements UserInterface
 {
-    private string $firstName = '';
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    public int $id;
 
-    private string $lastName = '';
+    /**
+     * @ORM\Column(type="string")
+     */
+    public string $firstName = '';
 
-    private string $email = '';
+    /**
+     * @ORM\Column(type="string")
+     */
+    public string $lastName = '';
 
-    public function getFirstName(): string
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    public string $password;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     */
+    public string $email = '';
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private array $roles = [];
+
+    public function getRoles(): array
     {
-        return $this->firstName;
+        return $this->roles;
     }
 
-    public function setFirstName(string $firstName): void
+    public function getPassword(): string
     {
-        $this->firstName = $firstName;
+        return $this->password;
     }
 
-    public function getLastName(): string
+    public function getSalt(): ?string
     {
-        return $this->lastName;
+        return null;
     }
 
-    public function setLastName(string $lastName): void
-    {
-        $this->lastName = $lastName;
-    }
-
-    public function getEmail(): string
+    public function getUsername(): string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): void
+    public function eraseCredentials(): void
     {
-        $this->email = $email;
     }
 }
