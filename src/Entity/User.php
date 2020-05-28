@@ -34,7 +34,7 @@ class User implements UserInterface
     public string $lastName = '';
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=100)
      */
     public string $password;
 
