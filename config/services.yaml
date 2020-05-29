@@ -33,3 +33,9 @@ services:
             '%app.billing.site-name%',
             '%app.billing.plan-name%'
         ]
+
+    app.doctrine.hash_password_listener:
+        class: App\Doctrine\HashPasswordListener
+        autowire: true
+        tags:
+            - { name: doctrine.event_subscriber }

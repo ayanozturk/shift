@@ -12,7 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Entity
  * @UniqueEntity(fields="email", message="Email already taken")
- * @UniqueEntity(fields="username", message="Username already taken")
  */
 class User implements UserInterface
 {
@@ -21,43 +20,95 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public int $id;
+    protected ?int $id;
 
     /**
      * @ORM\Column(type="string")
      */
-    public string $firstName = '';
+    protected ?string $firstName = '';
 
     /**
      * @ORM\Column(type="string")
      */
-    public string $lastName = '';
+    protected ?string $lastName = '';
+
+    protected ?string $plainPassword = '';
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    public string $password;
+    protected ?string $password = '';
 
     /**
      * @ORM\Column(type="string", length=190, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
-    public string $email = '';
+    protected ?string $email = '';
 
     /**
      * @ORM\Column(type="array")
      */
-    private array $roles = [];
+    private array $roles = ['ROLE_USER'];
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(?string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(?string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
+    }
 
     public function getRoles(): array
     {
         return $this->roles;
     }
 
-    public function getPassword(): string
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
+    public function getPassword(): ?string
     {
         return $this->password;
+    }
+
+    public function setPassword(?string $password): void
+    {
+        $this->password = $password;
     }
 
     public function getSalt(): ?string
@@ -65,12 +116,23 @@ class User implements UserInterface
         return null;
     }
 
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->email;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
     public function eraseCredentials(): void
     {
+        $this->plainPassword = null;
     }
 }
