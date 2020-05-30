@@ -28,6 +28,11 @@ class Shift
      */
     private ?DateTime $endDate;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="shifts")
+     */
+    private array $users = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -56,5 +61,15 @@ class Shift
     public function setEndDate(?DateTime $endDate): void
     {
         $this->endDate = $endDate;
+    }
+
+    public function getUsers(): array
+    {
+        return $this->users;
+    }
+
+    public function setUsers(array $users): void
+    {
+        $this->users = $users;
     }
 }

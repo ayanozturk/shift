@@ -4,7 +4,7 @@ namespace App\Controller\Account;
 
 use App\Billing\BillingConfig;
 use App\Entity\User;
-use App\Form\Type\UserType;
+use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 

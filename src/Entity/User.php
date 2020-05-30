@@ -51,6 +51,11 @@ class User implements UserInterface
      */
     private array $roles = ['ROLE_USER'];
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Shift", inversedBy="users")
+     */
+    private array $shifts = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,5 +139,20 @@ class User implements UserInterface
     public function eraseCredentials(): void
     {
         $this->plainPassword = null;
+    }
+
+    public function getShifts(): array
+    {
+        return $this->shifts;
+    }
+
+    public function setShifts(array $shifts): void
+    {
+        $this->shifts = $shifts;
+    }
+
+    public function addShift(Shift $shift): void
+    {
+        $this->shifts[] = $shift;
     }
 }
