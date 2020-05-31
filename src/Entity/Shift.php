@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
@@ -31,7 +33,12 @@ class Shift
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="shifts")
      */
-    private array $users = [];
+    private Collection $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -63,13 +70,23 @@ class Shift
         $this->endDate = $endDate;
     }
 
-    public function getUsers(): array
+    public function getUsers(): Collection
     {
         return $this->users;
     }
 
+    /**
+     * @param User[] $users
+     */
     public function setUsers(array $users): void
     {
-        $this->users = $users;
+        foreach ($users as $user) {
+            $this->addUser($user);
+        }
+    }
+
+    public function addUser(User $user): void
+    {
+        $this->users->add($user);
     }
 }

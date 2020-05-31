@@ -10,6 +10,10 @@ checkout:
     path: /account/checkout
     controller: App\Controller\Account\Onboarding::checkout
 
+shift-list:
+    path: /shift/list
+    controller: App\Controller\ShiftController::list
+
 login:
     path: /login
     controller: App\Controller\SecurityController::login

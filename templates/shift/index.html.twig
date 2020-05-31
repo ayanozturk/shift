@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Shifts</h3>
+            </div>
+        </div>
+
+        <div>
+            {% for user in users %}
+                <div>{{ user.firstName }} {{ user.lastName }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+{% endblock %}

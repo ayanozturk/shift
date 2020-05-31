@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -54,7 +56,12 @@ class User implements UserInterface
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Shift", inversedBy="users")
      */
-    private array $shifts = [];
+    private Collection $shifts;
+
+    public function __construct()
+    {
+        $this->shifts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -141,18 +148,20 @@ class User implements UserInterface
         $this->plainPassword = null;
     }
 
-    public function getShifts(): array
+    public function getShifts(): Collection
     {
         return $this->shifts;
     }
 
     public function setShifts(array $shifts): void
     {
-        $this->shifts = $shifts;
+        foreach ($shifts as $shift) {
+            $this->addShift($shift);
+        }
     }
 
     public function addShift(Shift $shift): void
     {
-        $this->shifts[] = $shift;
+        $this->shifts->add($shift);
     }
 }
