@@ -7,6 +7,7 @@
     <arg name="cache" value=".phpcs-cache"/>
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
+    <arg name="ignore" value="src/Migrations, config" />
 
     <rule ref="PSR2"/>
     <rule ref="PSR12"/>
