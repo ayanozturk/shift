@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Shift;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +16,11 @@ class ShiftController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $userRepository = $entityManager->getRepository(User::class);
-        $users = $userRepository->findAll();
+        $shiftRepository = $entityManager->getRepository(Shift::class);
 
-        return $this->render('shift/index.html.twig', ['users' => $users]);
+        return $this->render('shift/index.html.twig', [
+            'users' => $userRepository->findAll(),
+            'shifts' => $shiftRepository->findAll(),
+        ]);
     }
 }

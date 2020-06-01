@@ -1,21 +1,61 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <style>
+        .user {
+            border: 1px solid black;
+        }
+        .dropped {
+            border: 1px solid black;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
 
-    <div class="">
-        <div class="page-title">
-            <div class="title_left">
-                <h3>Shifts</h3>
+    <div class="container">
+
+        <div class="row">
+            <div class="page-title col-lg-12">
+                <div class="title_left">
+                    <h3>Shifts</h3>
+                </div>
             </div>
         </div>
 
-        <div>
-            {% for user in users %}
-                <div>{{ user.firstName }} {{ user.lastName }}</div>
-            {% endfor %}
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Users</h2>
+                {% for user in users %}
+                    <div class="user col-lg-6" data-user-id="{{ user.id }}">{{ user.firstName }} {{ user.lastName }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="col-lg-6">
+                <h2>Shifts</h2>
+                {% for shift in shifts %}
+                    <div class="shift col-lg-12">{{ shift.startDate }} {{ shift.endDate }}</div>
+                {% endfor %}
+                <div class="dropzone col-lg-12" style="height: 50px;"></div>
+            </div>
         </div>
 
         <div class="clearfix"></div>
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $( function() {
+            $( ".user" ).draggable({
+                snap: ".shift",
+                helper: "clone",
+                connectToSortable: ".dropzone",
+            });
+            $( ".dropzone" ).sortable({
+                revert: true
+            });
+        } );
+    </script>
 {% endblock %}
