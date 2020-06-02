@@ -32,12 +32,14 @@ class HashPasswordListener implements EventSubscriber
             return;
         }
 
-        $encoded = $this->passwordEncoder->encodePassword(
-            $entity,
-            $entity->plainPassword
-        );
+        if ($entity->plainPassword) {
+            $encoded = $this->passwordEncoder->encodePassword(
+                $entity,
+                $entity->plainPassword
+            );
 
-        $entity->setPassword($encoded);
-        $entity->eraseCredentials();
+            $entity->setPassword($encoded);
+            $entity->eraseCredentials();
+        }
     }
 }
