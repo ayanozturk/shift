@@ -4,9 +4,14 @@ build:
       project_setup:
         override:
           - 'true'
+
+      environment:
+        php: 7.4
+
       tests:
         override:
           - php-scrutinizer-run
+          - bin/phpunit
 filter:
   excluded_paths:
     - 'bin/*'
