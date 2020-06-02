@@ -8,10 +8,21 @@
 
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('/css/main.css') }}">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% include 'top-nav.twig' %}
+
+        <div class="container-fluid">
+            <div class="row">
+                <main class="col-md-12">
+                    {% block body %}{% endblock %}
+                </main>
+            </div>
+        </div>
+
+        {% include 'footer.twig' %}
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
