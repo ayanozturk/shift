@@ -23,31 +23,31 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected ?int $id;
+    public ?int $id;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected ?string $firstName = '';
+    public ?string $firstName = '';
 
     /**
      * @ORM\Column(type="string")
      */
-    protected ?string $lastName = '';
+    public ?string $lastName = '';
 
-    protected ?string $plainPassword = '';
+    public ?string $plainPassword = '';
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    protected ?string $password = '';
+    private ?string $password = '';
 
     /**
      * @ORM\Column(type="string", length=190, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
-    protected ?string $email = '';
+    public ?string $email = '';
 
     /**
      * @ORM\Column(type="array")
@@ -62,46 +62,6 @@ class User implements UserInterface
     public function __construct()
     {
         $this->shifts = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function setId(?int $id): void
-    {
-        $this->id = $id;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(?string $firstName): void
-    {
-        $this->firstName = $firstName;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(?string $lastName): void
-    {
-        $this->lastName = $lastName;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(?string $email): void
-    {
-        $this->email = $email;
     }
 
     public function getRoles(): array
@@ -134,19 +94,9 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function getPlainPassword(): ?string
-    {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword(?string $plainPassword): void
-    {
-        $this->plainPassword = $plainPassword;
-    }
-
     public function eraseCredentials(): void
     {
-        $this->plainPassword = null;
+        $this->plainPassword = '';
     }
 
     public function getShifts(): Collection

@@ -34,7 +34,7 @@ class HashPasswordListener implements EventSubscriber
 
         $encoded = $this->passwordEncoder->encodePassword(
             $entity,
-            $entity->getPlainPassword()
+            $entity->plainPassword
         );
 
         $entity->setPassword($encoded);

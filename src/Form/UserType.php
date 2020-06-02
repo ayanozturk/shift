@@ -16,25 +16,28 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('firstName', TextType::class, ['required' => true])
-            ->add('lastName', TextType::class, ['required' => true])
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
-            ])
-            ->add('email', EmailType::class, ['required' => true])
-            ->add('roles', ChoiceType::class, [
-                'required' => true,
-                'multiple' => true,
-                'choices'  => [
-                    'User' => 'ROLE_USER',
-                    'Admin' => 'ROLE_ADMIN',
-                ],
-            ])
-        ;
+        $builder->add('firstName', TextType::class)
+            ->setRequired(true);
+
+        $builder->add('lastName', TextType::class)
+            ->setRequired(true);
+
+        $builder->add('plainPassword', RepeatedType::class, [
+            'type' => PasswordType::class,
+            'first_options' => ['label' => 'Password'],
+            'second_options' => ['label' => 'Repeat Password'],
+        ])->setRequired(true);
+
+        $builder->add('email', EmailType::class)
+            ->setRequired(true);
+
+        $builder->add('roles', ChoiceType::class, [
+            'multiple' => true,
+            'choices' => [
+                'User' => 'ROLE_USER',
+                'Admin' => 'ROLE_ADMIN',
+            ],
+        ])->setRequired(true);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
