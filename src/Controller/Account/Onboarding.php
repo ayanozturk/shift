@@ -6,6 +6,7 @@ use App\Billing\BillingConfig;
 use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -14,11 +15,28 @@ use Symfony\Component\HttpFoundation\Response;
 class Onboarding extends AbstractController
 {
 
-    public function createAccount(): Response
+    public function createAccount(Request $request): Response
     {
         $user = new User();
+        $user->setRoles([User::ROLE_ADMIN]);
 
         $form = $this->createForm(UserType::class, $user);
+        $form->remove('roles');
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Account created. Plese log in!'
+            );
+
+            return $this->redirectToRoute('login');
+        }
 
         return $this->render('account/create.html.twig', [
             'form' => $form->createView(),

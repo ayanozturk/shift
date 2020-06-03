@@ -18,6 +18,9 @@ use App\Repository\UserRepository;
  */
 class User implements UserInterface
 {
+    public const ROLE_USER = 'ROLE_USER';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -52,7 +55,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="array")
      */
-    private array $roles = ['ROLE_USER'];
+    private array $roles = [self::ROLE_USER];
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Shift", inversedBy="users")

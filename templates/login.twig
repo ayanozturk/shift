@@ -36,17 +36,13 @@
                             Log in
                         </button>
                     </div>
-
-                    <div class="clearfix"></div>
-
-                    <div class="separator">
-                        <div>
-                            Shift Manager ©{{ 'now'|date('Y') }} All Rights Reserved
-                        </div>
-                    </div>
                 </form>
             </section>
         </div>
     </div>
+
+    <hr />
+    <h2>Don't have a account yet?</h2>
+    <a class="btn btn-secondary" href="{{ url('create-account') }}">Create Account</a>
 </div>
 {% endblock %}
