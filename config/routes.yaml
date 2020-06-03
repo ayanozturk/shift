@@ -6,6 +6,10 @@ create-account:
     path: /account/create
     controller: App\Controller\Account\Onboarding::createAccount
 
+account-details:
+    path: /account/details
+    controller: App\Controller\Account\AccountController::details
+
 checkout:
     path: /account/checkout
     controller: App\Controller\Account\Onboarding::checkout

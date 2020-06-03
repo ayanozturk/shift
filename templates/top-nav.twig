@@ -1,10 +1,16 @@
-<nav class="navbar navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ url('index') }}">Shift Manager</a>
 
     {% if app.user %}
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="{{ url('logout') }}">Sign out</a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ app.user.firstName }} {{ app.user.lastName }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{{ url('account-details') }}">Account Details</a>
+                    <a class="dropdown-item" href="{{ url('logout') }}">Sign out</a>
+                </div>
             </li>
         </ul>
     {% endif %}
