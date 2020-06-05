@@ -12,6 +12,8 @@ class AccountController extends AbstractController
 {
     public function details(): Response
     {
-        return $this->render('account/details.twig');
+        return $this->render('account/details.twig', [
+            'user' => $this->getUser(),
+        ]);
     }
 }

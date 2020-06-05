@@ -6,8 +6,41 @@
     <div class="col-md-6">
         <div class="page-title">
             <div class="title_left">
-                <h3>My Account</h3>
+                <h3>Personal</h3>
             </div>
         </div>
+    </div>
+
+    <div class="col-md-6">
+        <table class="table">
+            <tr>
+                <th>Firstname:</th>
+                <td>{{ user.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Lastname:</th>
+                <td>{{ user.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Email:</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td><a href="#">Change password</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Company</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        There is no company linked to your account
     </div>
 {% endblock %}
