@@ -1,5 +1,10 @@
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ url('index') }}">Shift Manager</a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ path('index') }}">
+        Shift Manager
+        {% if app.user and app.user.company %}
+             - {{ app.user.company.name }}
+        {% endif %}
+    </a>
 
     {% if app.user %}
         <ul class="navbar-nav ml-auto">
