@@ -41,6 +41,17 @@
     </div>
 
     <div class="col-md-6">
-        There is no company linked to your account
+        {% if user.company %}
+            <table class="table">
+                <tr>
+                    <th>Name:</th>
+                    <td>{{ user.company.name }}</td>
+                </tr>
+            </table>
+            <a href="{{ url('account-company') }}">Edit</a>
+        {% else %}
+            There is no company linked to your account.
+            <a href="{{ url('account-company') }}">Click here</a> to add one
+        {% endif %}
     </div>
 {% endblock %}

@@ -10,6 +10,10 @@ account-details:
     path: /account/details
     controller: App\Controller\Account\AccountController::details
 
+account-company:
+    path: /account/company
+    controller: App\Controller\Account\AccountController::company
+
 checkout:
     path: /account/checkout
     controller: App\Controller\Account\Onboarding::checkout

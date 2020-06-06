@@ -26,31 +26,31 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public ?int $id;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="string")
      */
-    public ?string $firstName = '';
+    public ?string $firstName = null;
 
     /**
      * @ORM\Column(type="string")
      */
-    public ?string $lastName = '';
+    public ?string $lastName = null;
 
-    public ?string $plainPassword = '';
+    public ?string $plainPassword = null;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private ?string $password = '';
+    private ?string $password = null;
 
     /**
      * @ORM\Column(type="string", length=190, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
-    public ?string $email = '';
+    public ?string $email = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="users")
