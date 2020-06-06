@@ -14,6 +14,10 @@ account-company:
     path: /account/company
     controller: App\Controller\Account\AccountController::company
 
+change-password:
+    path: /user/change-password
+    controller: App\Controller\UserController::changePassword
+
 checkout:
     path: /account/checkout
     controller: App\Controller\Account\Onboarding::checkout

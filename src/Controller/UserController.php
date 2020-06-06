@@ -3,11 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\PasswordChangeType;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/employees")
@@ -100,6 +104,43 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToUserList();
+    }
+
+    public function changePassword(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder
+    ): Response {
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $form = $this->createForm(PasswordChangeType::class, $this->getUser());
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $currentPassword = $form->get('currentPassword')->getData();
+            $plainPassword = $form->get('plainPassword')->getData();
+            $checkPass = $passwordEncoder->isPasswordValid($user, $currentPassword);
+
+            if ($checkPass) {
+                $password = $passwordEncoder->encodePassword($user, $plainPassword);
+                $user->setPassword($password);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $user->eraseCredentials();
+
+                $this->redirectToRoute('account-details');
+            } else {
+                $form->addError(new FormError('Current password is not correct'));
+            }
+        }
+
+        return $this->render('user/passwordChange.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     private function redirectToUserList(): Response
