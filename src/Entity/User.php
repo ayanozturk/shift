@@ -53,6 +53,11 @@ class User implements UserInterface
     public ?string $email = '';
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="users")
+     */
+    public ?Company $company = null;
+
+    /**
      * @ORM\Column(type="array")
      */
     private array $roles = [self::ROLE_USER];

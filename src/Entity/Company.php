@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CompanyRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,6 +22,11 @@ class Company
      * @ORM\Column(type="string", length=255)
      */
     private ?string $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="company")
+     */
+    public Collection $users;
 
     public function getId(): ?int
     {
