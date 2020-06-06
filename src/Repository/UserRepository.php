@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Company;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -20,11 +21,15 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findPaginated(int $start = 0, int $limit = 5): Paginator
+    public function findByCompany(Company $company, int $start = 0, int $limit = 5): Paginator
     {
         $query = $this->createQueryBuilder('u')
+            ->where('u.company = :company')
             ->setFirstResult($start)
             ->setMaxResults($limit)
+            ->setParameters([
+                'company' => $company
+            ])
             ->getQuery();
 
         return new Paginator($query, $fetchJoinCollection = false);

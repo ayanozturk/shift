@@ -3,10 +3,11 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
-    <h1>Users</h1>
+    <h1>Employees</h1>
 
-    <table class="table">
-        <thead>
+    {% if app.user.company %}
+        <table class="table">
+            <thead>
             <tr>
                 <th>Id</th>
                 <th>FirstName</th>
@@ -15,47 +16,51 @@
                 <th>Roles</th>
                 <th>actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
-                <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.lastName }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
+                    <td>
+                        <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
+                        <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <nav aria-label="User list navigation">
-        <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
-            <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
-            <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+        <nav aria-label="User list navigation">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+                <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-    <a href="{{ path('user_new') }}">Create new</a>
+        <a href="{{ path('employee_new') }}">Create new</a>
+    {% else %}
+        There is no company linked to your account.
+        <a href="{{ path('account-company') }}">Click here</a> to add a company.
+    {% endif %}
 {% endblock %}

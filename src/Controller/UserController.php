@@ -10,18 +10,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/user")
+ * @Route("/employees")
  */
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="user_index", methods={"GET"})
+     * @Route("/", name="employee_list", methods={"GET"})
      */
     public function index(): Response
     {
-        $users = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->findPaginated();
+        if ($this->getUser()->company) {
+            $users = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findByCompany($this->getUser()->company);
+        } else {
+            $users = [];
+        }
 
         return $this->render('user/index.html.twig', [
             'users' => $users,
@@ -29,11 +33,13 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="user_new", methods={"GET","POST"})
+     * @Route("/new", name="employee_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
         $user = new User();
+        $user->company = $this->getUser()->company;
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -98,6 +104,6 @@ class UserController extends AbstractController
 
     private function redirectToUserList(): Response
     {
-        return $this->redirectToRoute('user_index');
+        return $this->redirectToRoute('employee_list');
     }
 }
