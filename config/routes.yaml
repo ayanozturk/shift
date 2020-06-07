@@ -26,6 +26,10 @@ shift-list:
     path: /shift/list
     controller: App\Controller\ShiftController::list
 
+shift-calendar:
+    path: /shift/calendar
+    controller: App\Controller\ShiftController::calendar
+
 login:
     path: /login
     controller: App\Controller\SecurityController::login

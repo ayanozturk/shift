@@ -23,4 +23,9 @@ class ShiftController extends AbstractController
             'shifts' => $shiftRepository->findAll(),
         ]);
     }
+
+    public function calendar(): Response
+    {
+        return $this->render('shift/calendar.twig');
+    }
 }
