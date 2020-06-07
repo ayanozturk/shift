@@ -34,7 +34,7 @@
             <div class="col-lg-6">
                 <h2>Shifts</h2>
                 {% for shift in shifts %}
-                    <div class="shift col-lg-12">{{ shift.startDate }} {{ shift.endDate }}</div>
+                    <div class="shift col-lg-12">{{ shift.startDate|date('H:i') }} - {{ shift.endDate|date('H:i') }}</div>
                 {% endfor %}
                 <div class="dropzone col-lg-12" style="height: 50px;"></div>
             </div>
