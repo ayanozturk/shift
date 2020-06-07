@@ -24,12 +24,12 @@ class Shift
     /**
      * @ORM\Column(type="datetime")
      */
-    private ?DateTime $startDate;
+    private ?DateTime $startDate = null;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private ?DateTime $endDate;
+    private ?DateTime $endDate = null;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="shifts")
@@ -39,6 +39,8 @@ class Shift
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->startDate = new DateTime();
+        $this->endDate = new DateTime();
     }
 
     public function getId(): ?int

@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Shift;
 use App\Entity\User;
 use App\Form\PasswordChangeType;
+use App\Form\ShiftType;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,6 +69,32 @@ class UserController extends AbstractController
     {
         return $this->render('user/show.html.twig', [
             'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/shifts", name="employee_shifts", methods={"GET", "POST"})
+     */
+    public function userShifts(Request $request, User $user): Response
+    {
+        $shift = new Shift();
+        $user->addShift($shift);
+
+        $form = $this->createForm(ShiftType::class, $shift);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->persist($shift);
+            $entityManager->flush();
+
+            return $this->redirectToUserList();
+        }
+
+        return $this->render('user/userShifts.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 

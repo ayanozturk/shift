@@ -1,0 +1,12 @@
+{% extends 'innerBase.html.twig' %}
+
+{% block title %}Employee{% endblock %}
+
+{% block body %}
+    <h1>{{ user.firstName }} {{ user.lastName}} Shifts</h1>
+
+    <h2>Add Shift</h2>
+
+    {{ form(form) }}
+
+{% endblock %}
