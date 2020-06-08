@@ -15,13 +15,13 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th class="weekday">Monday</th>
-                    <th class="weekday">Tuesday</th>
-                    <th class="weekday">Wednesday</th>
-                    <th class="weekday">Thursday</th>
-                    <th class="weekday">Friday</th>
-                    <th class="weekend">Saturday</th>
-                    <th class="weekend">Sunday</th>
+                    <th class="day weekday">Monday</th>
+                    <th class="day weekday">Tuesday</th>
+                    <th class="day weekday">Wednesday</th>
+                    <th class="day weekday">Thursday</th>
+                    <th class="day weekday">Friday</th>
+                    <th class="day weekend">Saturday</th>
+                    <th class="day weekend">Sunday</th>
                 </tr>
                 </thead>
             </table>
@@ -36,6 +36,10 @@
         .weekday, .weekend {
             width: 14%;
             text-align: center;
+        }
+
+        .day:nth-child({{ ('now'|date('N')) }}) {
+            background: #dadada;
         }
     </style>
 {% endblock %}
