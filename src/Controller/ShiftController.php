@@ -26,6 +26,14 @@ class ShiftController extends AbstractController
 
     public function calendar(): Response
     {
-        return $this->render('shift/calendar.twig');
+        $entityManager = $this->getDoctrine()->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+
+        $users = $userRepository->findBy(['company' => $this->getUser()->company]) ?? [];
+
+        return $this->render('shift/calendar.twig', [
+            'company' => $this->getUser()->company,
+            'users' => $users,
+        ]);
     }
 }

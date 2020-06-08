@@ -15,6 +15,7 @@
             <table class="table">
                 <thead>
                 <tr>
+                    <th></th>
                     <th class="day weekday">Monday</th>
                     <th class="day weekday">Tuesday</th>
                     <th class="day weekday">Wednesday</th>
@@ -23,6 +24,18 @@
                     <th class="day weekend">Saturday</th>
                     <th class="day weekend">Sunday</th>
                 </tr>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.firstName }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endfor %}
                 </thead>
             </table>
         </div>
@@ -38,7 +51,7 @@
             text-align: center;
         }
 
-        .day:nth-child({{ ('now'|date('N')) }}) {
+        th:nth-child({{ ('now'|date('N')) + 1 }}) {
             background: #dadada;
         }
     </style>
