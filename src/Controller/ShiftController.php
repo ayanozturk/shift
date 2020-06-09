@@ -31,11 +31,22 @@ class ShiftController extends AbstractController
 
         $users = $userRepository->findBy(['company' => $this->getUser()->company]) ?? [];
 
-        $date = new \DateTime('Monday this week');
+        $monday = new \DateTime('Monday this week');
+        $weekdays = [
+            $monday->format('z'),
+            $monday->modify('+1 day')->format('z'),
+            $monday->modify('+1 day')->format('z'),
+            $monday->modify('+1 day')->format('z'),
+            $monday->modify('+1 day')->format('z'),
+            $monday->modify('+1 day')->format('z'),
+            $monday->modify('+1 day')->format('z'),
+        ];
 
         return $this->render('shift/calendar.twig', [
             'company' => $this->getUser()->company,
-            'week' => (int) $date->format('W'),
+            'monday' => $monday,
+            'week' => (int) $monday->format('W'),
+            'weekdays' => $weekdays,
             'users' => $users,
         ]);
     }

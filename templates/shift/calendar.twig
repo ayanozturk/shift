@@ -27,13 +27,13 @@
                 {% for user in users %}
                 <tr>
                     <td>{{ user.firstName }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td data-user="{{ user.id }}" data-day="{{ weekdays[0] }}"></td>
+                    <td data-user="{{ user.id }}" data-day="{{ weekdays[1] }}"></td>
+                    <td data-user="{{ user.id }}" data-day="{{ weekdays[2] }}"></td>
+                    <td data-user="{{ user.id }}" data-day="{{ weekdays[3] }}"></td>
+                    <td data-user="{{ user.id }}" data-day="{{ weekdays[4] }}"></td>
+                    <td data-user="{{ user.id }}" data-day="{{ weekdays[5] }}"></td>
+                    <td data-user="{{ user.id }}" data-day="{{ weekdays[6] }}"></td>
                 </tr>
                 {% endfor %}
                 </thead>
