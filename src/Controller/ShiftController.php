@@ -31,8 +31,11 @@ class ShiftController extends AbstractController
 
         $users = $userRepository->findBy(['company' => $this->getUser()->company]) ?? [];
 
+        $date = new \DateTime('Monday this week');
+
         return $this->render('shift/calendar.twig', [
             'company' => $this->getUser()->company,
+            'week' => (int) $date->format('W'),
             'users' => $users,
         ]);
     }
