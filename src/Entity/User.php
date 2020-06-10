@@ -63,6 +63,11 @@ class User implements UserInterface
     private array $roles = [self::ROLE_USER];
 
     /**
+     * @ORM\Column(type="array")
+     */
+    public array $preferences = [];
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Shift", inversedBy="users")
      */
     private Collection $shifts;
