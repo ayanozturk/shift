@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Preferences;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -41,6 +42,13 @@ class UserType extends AbstractType
                 'Admin' => 'ROLE_ADMIN',
             ],
         ])->setRequired(true);
+
+        $builder->add('preferences', ChoiceType::class, [
+            'multiple' => true,
+            'choices' => [
+                'Weekend Only' => Preferences::WEEKEND_ONLY
+            ],
+        ]);
 
         $builder->add('save', SubmitType::class);
     }
