@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 
 /**
@@ -15,6 +16,13 @@ use App\Repository\UserRepository;
  *
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields="email", message="Email already taken")
+ * @ApiResource(
+ *     attributes={"security"="is_granted('ROLE_USER')"},
+ *     collectionOperations={},
+ *     itemOperations={
+ *       "get"={"security"="is_granted('ROLE_USER') and object.id == user.id"}
+ *     }
+ * )
  */
 class User implements UserInterface
 {
