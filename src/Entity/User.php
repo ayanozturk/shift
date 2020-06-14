@@ -53,6 +53,11 @@ class User implements UserInterface
     public ?string $email = null;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    public ?string $jobTitle = null;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="users")
      */
     public ?Company $company = null;

@@ -25,6 +25,8 @@ class UserType extends AbstractType
         $builder->add('lastName', TextType::class)
             ->setRequired(true);
 
+        $builder->add('jobTitle', TextType::class);
+
         $builder->add('plainPassword', RepeatedType::class, [
             'type' => PasswordType::class,
             'constraints' => [new Length(['min' => 8])],
@@ -46,8 +48,10 @@ class UserType extends AbstractType
         $builder->add('preferences', ChoiceType::class, [
             'multiple' => true,
             'choices' => [
-                'Weekend Only' => Preferences::WEEKEND_ONLY
+                'No Preference' => Preferences::NO_PREFERENCE,
+                'Weekend Only' => Preferences::WEEKEND_ONLY,
             ],
+            'data' => [Preferences::NO_PREFERENCE],
         ]);
 
         $builder->add('save', SubmitType::class);
