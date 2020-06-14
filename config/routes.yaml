@@ -26,6 +26,10 @@ shift-list:
     path: /shift/list
     controller: App\Controller\ShiftController::list
 
+shift-create:
+    path: /shift/create/{day<\d+>}
+    controller: App\Controller\ShiftController::create
+
 shift-calendar:
     path: /shift/calendar
     controller: App\Controller\ShiftController::calendar

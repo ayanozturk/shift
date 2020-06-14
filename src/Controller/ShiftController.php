@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Shift;
 use App\Entity\User;
+use App\Form\ShiftType;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -24,6 +27,31 @@ class ShiftController extends AbstractController
         ]);
     }
 
+    public function create(Request $request, int $day): Response
+    {
+        $startDateTime = DateTime::createFromFormat('Y-m-d H:i', date('Y') . '-01-01 09:00');
+        $startDateTime->modify('+' . $day - 1 . ' days');
+
+        $shift = new Shift();
+        $shift->setStartDate($startDateTime);
+        $shift->setEndDate((clone $startDateTime)->modify('+8 hours'));
+
+        $form = $this->createForm(ShiftType::class, $shift);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($shift);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('shift-list');
+        }
+
+        return $this->render('shift/create.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
     public function calendar(): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
@@ -31,7 +59,7 @@ class ShiftController extends AbstractController
 
         $users = $userRepository->findBy(['company' => $this->getUser()->company]) ?? [];
 
-        $monday = new \DateTime('Monday this week');
+        $monday = new DateTime('Monday this week');
         $weekdays = [
             $monday->format('z'),
             $monday->modify('+1 day')->format('z'),
