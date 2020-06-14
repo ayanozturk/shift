@@ -2,21 +2,21 @@
 
 namespace App\Doctrine;
 
+use App\Core\PasswordUpdater;
 use App\Entity\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class HashPasswordListener
  */
 class HashPasswordListener implements EventSubscriber
 {
-    private UserPasswordEncoderInterface $passwordEncoder;
+    private PasswordUpdater $passwordUpdater;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(PasswordUpdater $passwordUpdater)
     {
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordUpdater = $passwordUpdater;
     }
 
     public function getSubscribedEvents(): array
@@ -33,13 +33,10 @@ class HashPasswordListener implements EventSubscriber
         }
 
         if ($entity->plainPassword) {
-            $encoded = $this->passwordEncoder->encodePassword(
+            $this->passwordUpdater->encodeUserPassword(
                 $entity,
                 $entity->plainPassword
             );
-
-            $entity->setPassword($encoded);
-            $entity->eraseCredentials();
         }
     }
 }

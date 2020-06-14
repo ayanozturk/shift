@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Core\Exception\InvalidCurrentPasswordException;
+use App\Core\PasswordUpdater;
 use App\Entity\Shift;
 use App\Entity\User;
 use App\Form\PasswordChangeType;
@@ -12,7 +14,6 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/employees")
@@ -135,7 +136,7 @@ class UserController extends AbstractController
 
     public function changePassword(
         Request $request,
-        UserPasswordEncoderInterface $passwordEncoder
+        PasswordUpdater $passwordUpdater
     ): Response {
 
         /** @var User $user */
@@ -147,21 +148,13 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $currentPassword = $form->get('currentPassword')->getData();
             $plainPassword = $form->get('plainPassword')->getData();
-            $checkPass = $passwordEncoder->isPasswordValid($user, $currentPassword);
 
-            if ($checkPass) {
-                $password = $passwordEncoder->encodePassword($user, $plainPassword);
-                $user->setPassword($password);
-
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($user);
-                $entityManager->flush();
-
-                $user->eraseCredentials();
-
-                $this->redirectToRoute('account-details');
-            } else {
-                $form->addError(new FormError('Current password is not correct'));
+            try {
+                $passwordUpdater->updatePassword($user, $currentPassword, $plainPassword);
+                $this->addFlash('notice', 'Password has successfully been changed');
+                return $this->redirectToRoute('account-details');
+            } catch (InvalidCurrentPasswordException $exception) {
+                $form->addError(new FormError('Current password is not correct, please try again'));
             }
         }
 

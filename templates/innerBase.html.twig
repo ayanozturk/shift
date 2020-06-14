@@ -22,6 +22,13 @@
                     {% include 'sidebar.twig' %}
                 </nav>
                 <main class="col-md-10">
+                    <div class="col-md-12">
+                        {% for message in app.flashes('notice') %}
+                            <div class="alert alert-success flash-notice" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
                     {% block body %}{% endblock %}
                 </main>
             </div>
