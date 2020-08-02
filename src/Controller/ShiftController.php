@@ -52,6 +52,13 @@ class ShiftController extends AbstractController
         ]);
     }
 
+    public function detail(Shift $shift): Response
+    {
+        return $this->render('shift/detail.twig', [
+            'shift' => $shift,
+        ]);
+    }
+
     public function calendar(): Response
     {
         $entityManager = $this->getDoctrine()->getManager();

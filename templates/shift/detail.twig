@@ -1,0 +1,28 @@
+{% extends 'innerBase.html.twig' %}
+
+{% block body %}
+    <div class="container">
+
+        <div class="row">
+            <div class="page-title col-lg-12">
+                <div class="title_left">
+                    <h2>Shift Detail</h2>
+                    {{ shift.startDate|date('Y-m-d H:i') }} - {{ shift.endDate|date('H:i') }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Employees</h3>
+                {% for user in shift.users %}
+                    <div class="shift col-lg-12">
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+{% endblock %}
