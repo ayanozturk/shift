@@ -3,7 +3,9 @@
 namespace App\EventListener;
 
 use App\Events\UserCreatedEvent;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
@@ -12,14 +14,14 @@ use Symfony\Component\Mime\Email;
  */
 class SendWelcomeEmail implements EventSubscriberInterface
 {
-    /**
-     * @var MailerInterface
-     */
-    private MailerInterface $mailer;
 
-    public function __construct(MailerInterface $mailer)
+    private MailerInterface $mailer;
+    private LoggerInterface $logger;
+
+    public function __construct(MailerInterface $mailer, LoggerInterface $logger)
     {
         $this->mailer = $mailer;
+        $this->logger = $logger;
     }
 
     public static function getSubscribedEvents(): array
@@ -41,6 +43,10 @@ class SendWelcomeEmail implements EventSubscriberInterface
             ->text('You successfully created an account in Shift Manager!')
             ->html('<p>You successfully created an account in Shift Manager!</p>');
 
-        $this->mailer->send($email);
+        try {
+            $this->mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+            $this->logger->critical('Email was not sent: ' . $e->getMessage());
+        }
     }
 }

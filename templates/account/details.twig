@@ -1,6 +1,6 @@
 {% extends 'innerBase.html.twig' %}
 
-{% block title %}New Account{% endblock %}
+{% block title %}My Account{% endblock %}
 
 {% block body %}
     <div class="col-md-6">
@@ -41,6 +41,10 @@
     </div>
 
     <div class="col-md-6">
+        <a href="{{ path('account-company') }}">Edit</a>
+    </div>
+
+    <div class="col-md-6">
         {% if user.company %}
             <table class="table">
                 <tr>
@@ -48,7 +52,6 @@
                     <td>{{ user.company.name }}</td>
                 </tr>
             </table>
-            <a href="{{ path('account-company') }}">Edit</a>
         {% else %}
             There is no company linked to your account.
             <a href="{{ path('account-company') }}">Click here</a> to add one
