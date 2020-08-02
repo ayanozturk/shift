@@ -38,6 +38,10 @@ shift-calendar:
     path: /shift/calendar
     controller: App\Controller\ShiftController::calendar
 
+shift-add-user:
+    path: /shift/{shiftId<\d+>}/add/{userId<\d+>}
+    controller: App\Controller\ShiftController::addUser
+
 login:
     path: /login
     controller: App\Controller\SecurityController::login

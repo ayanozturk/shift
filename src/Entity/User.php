@@ -141,4 +141,9 @@ class User implements UserInterface
     {
         $this->shifts->add($shift);
     }
+
+    public function hasShift(Shift $shift): bool
+    {
+        return $this->shifts->contains($shift);
+    }
 }

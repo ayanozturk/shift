@@ -54,8 +54,14 @@ class ShiftController extends AbstractController
 
     public function detail(Shift $shift): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+
+        $users = $userRepository->findBy(['company' => $this->getUser()->company]);
+
         return $this->render('shift/detail.twig', [
             'shift' => $shift,
+            'users' => $users,
         ]);
     }
 
@@ -80,9 +86,31 @@ class ShiftController extends AbstractController
         return $this->render('shift/calendar.twig', [
             'company' => $this->getUser()->company,
             'monday' => $monday,
-            'week' => (int) $monday->format('W'),
+            'week' => (int)$monday->format('W'),
             'weekdays' => $weekdays,
             'users' => $users,
         ]);
+    }
+
+    public function addUser(int $shiftId, int $userId): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $shiftRepository = $entityManager->getRepository(Shift::class);
+        $user = $userRepository->find($userId);
+        $shift = $shiftRepository->find($shiftId);
+
+        if (!$shift) {
+           return $this->redirectToRoute('shift-list');
+        }
+
+        if ($user && !$user->hasShift($shift)) {
+            $user->addShift($shift);
+            $entityManager->persist($shift);
+            $entityManager->persist($user);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('shift-detail', ['id' => $shift->getId()]);
     }
 }

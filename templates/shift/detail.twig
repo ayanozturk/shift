@@ -17,8 +17,17 @@
                 <h3>Employees</h3>
                 {% for user in shift.users %}
                     <div class="shift col-lg-12">
-
+                        {{ user.firstName }} {{ user.lastName }}
                     </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Add Employees</h3>
+                {% for user in users %}
+                    <a href="{{ path('shift-add-user', {'shiftId': shift.id, 'userId': user.id}) }}">{{ user.firstName }} {{ user.lastName }}</a>
                 {% endfor %}
             </div>
         </div>
