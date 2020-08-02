@@ -27,4 +27,9 @@ class Company
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="company")
      */
     public Collection $users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Shift", mappedBy="company")
+     */
+    public Collection $shifts;
 }

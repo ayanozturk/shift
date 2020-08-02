@@ -36,6 +36,11 @@ class Shift
      */
     private Collection $users;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="shifts")
+     */
+    public ?Company $company = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();

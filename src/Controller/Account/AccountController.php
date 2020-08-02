@@ -2,10 +2,9 @@
 
 namespace App\Controller\Account;
 
+use App\Controller\AbstractController;
 use App\Entity\Company;
-use App\Entity\User;
 use App\Form\CompanyType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,7 +22,6 @@ class AccountController extends AbstractController
 
     public function company(Request $request): Response
     {
-        /** @var User $user */
         $user = $this->getUser();
         $company = $user->company ?? new Company();
 

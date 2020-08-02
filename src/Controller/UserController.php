@@ -9,7 +9,6 @@ use App\Entity\User;
 use App\Form\PasswordChangeType;
 use App\Form\ShiftType;
 use App\Form\UserType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

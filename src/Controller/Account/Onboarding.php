@@ -3,11 +3,11 @@
 namespace App\Controller\Account;
 
 use App\Billing\BillingConfig;
+use App\Controller\AbstractController;
 use App\Entity\User;
 use App\Events\UserCreatedEvent;
 use App\Form\UserType;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -38,7 +38,7 @@ class Onboarding extends AbstractController
 
             $this->addFlash(
                 'notice',
-                'Account created. Plese log in!'
+                'Account created. Please log in!'
             );
 
             return $this->redirectToRoute('login');

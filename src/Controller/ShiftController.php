@@ -6,7 +6,6 @@ use App\Entity\Shift;
 use App\Entity\User;
 use App\Form\ShiftType;
 use DateTime;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,7 +22,7 @@ class ShiftController extends AbstractController
 
         return $this->render('shift/index.html.twig', [
             'users' => $userRepository->findAll(),
-            'shifts' => $shiftRepository->findAll(),
+            'shifts' => $shiftRepository->findBy(['company' => $this->getUser()->company]),
         ]);
     }
 
@@ -33,6 +32,7 @@ class ShiftController extends AbstractController
         $startDateTime->modify('+' . $day - 1 . ' days');
 
         $shift = new Shift();
+        $shift->company = $this->getUser()->company ?? null;
         $shift->setStartDate($startDateTime);
         $shift->setEndDate((clone $startDateTime)->modify('+8 hours'));
 
