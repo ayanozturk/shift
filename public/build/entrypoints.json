@@ -2,11 +2,18 @@
   "entrypoints": {
     "app": {
       "js": [
-        "/build/runtime.420770e4.js",
-        "/build/app.1186226d.js"
+        "/build/runtime.js",
+        "/build/app.js"
       ],
       "css": [
-        "/build/app.99c21d8d.css"
+        "/build/app.css"
+      ]
+    },
+    "create-shift": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~create-shift.js",
+        "/build/create-shift.js"
       ]
     }
   }

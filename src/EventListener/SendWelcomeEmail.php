@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\EventListener;
 
 use App\Events\UserCreatedEvent;
+use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -47,6 +50,8 @@ class SendWelcomeEmail implements EventSubscriberInterface
             $this->mailer->send($email);
         } catch (TransportExceptionInterface $e) {
             $this->logger->critical('Email was not sent: ' . $e->getMessage());
+        } catch (Exception $e) {
+            $this->logger->critical('Unknown error: ' . $e->getMessage());
         }
     }
 }
