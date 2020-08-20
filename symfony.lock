@@ -16,6 +16,9 @@
             "src/Entity/.gitignore"
         ]
     },
+    "brainmaestro/composer-git-hooks": {
+        "version": "v2.8.3"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {

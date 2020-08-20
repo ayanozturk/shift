@@ -3,5 +3,6 @@
   "build/app.js": "/build/app.js",
   "build/create-shift.js": "/build/create-shift.js",
   "build/runtime.js": "/build/runtime.js",
-  "build/vendors~create-shift.js": "/build/vendors~create-shift.js"
+  "build/vendors~create-shift.js": "/build/vendors~create-shift.js",
+  "build/vendors~create-shift.css": "/build/vendors~create-shift.css"
 }
