@@ -29,7 +29,7 @@ class ShiftController extends AbstractController
     public function create(Request $request, int $day): Response
     {
         $startDateTime = DateTime::createFromFormat('Y-m-d H:i', date('Y') . '-01-01 09:00');
-        $startDateTime->modify('+' . $day - 1 . ' days');
+        $startDateTime->modify('+' . ($day - 1) . ' days');
 
         $shift = new Shift();
         $shift->company = $this->getUser()->company ?? null;
@@ -101,7 +101,7 @@ class ShiftController extends AbstractController
         $shift = $shiftRepository->find($shiftId);
 
         if (!$shift) {
-           return $this->redirectToRoute('shift-list');
+            return $this->redirectToRoute('shift-list');
         }
 
         if ($user && !$user->hasShift($shift)) {

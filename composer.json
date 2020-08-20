@@ -27,7 +27,6 @@
         "symfony/yaml": "5.1.*"
     },
     "require-dev": {
-        "brainmaestro/composer-git-hooks": "^2.8",
         "phpstan/phpstan": "0.12.34",
         "phpunit/phpunit": "^9.2",
         "roave/security-advisories": "dev-master",
@@ -36,12 +35,10 @@
         "symfony/profiler-pack": "^1.0"
     },
     "scripts": {
-        "phpunit": "vendor/bin/phpunit",
-        "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon.dist",
-        "phpcs": "vendor/bin/phpcs",
-        "cghooks": "vendor/bin/cghooks",
-        "post-install-cmd": "cghooks add --ignore-lock",
-        "post-update-cmd": "cghooks update"
+        "phpunit": "phpunit",
+        "phpstan": "phpstan analyse -c phpstan.neon.dist",
+        "phpcs": "phpcs",
+        "phpcbf": "phpcbf"
     },
     "config": {
         "preferred-install": {
@@ -76,13 +73,6 @@
         "symfony": {
             "allow-contrib": false,
             "require": "5.1.*"
-        },
-        "hooks": {
-            "pre-commit": [
-                "phpunit",
-                "phpcs",
-                "phpstan"
-            ]
         }
     }
 }

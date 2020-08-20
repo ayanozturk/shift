@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Form\PasswordChangeType;
 use App\Form\ShiftType;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,9 +26,9 @@ class UserController extends AbstractController
     public function index(): Response
     {
         if ($this->getUser()->company) {
-            $users = $this->getDoctrine()
-                ->getRepository(User::class)
-                ->findByCompany($this->getUser()->company);
+            /** @var UserRepository $repository */
+            $repository = $this->getDoctrine()->getRepository(User::class);
+            $users = $repository->findByCompany($this->getUser()->company);
         } else {
             $users = [];
         }
