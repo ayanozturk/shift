@@ -139,7 +139,6 @@ class UserController extends AbstractController
         PasswordUpdater $passwordUpdater
     ): Response {
 
-        /** @var User $user */
         $user = $this->getUser();
         $form = $this->createForm(PasswordChangeType::class, $this->getUser());
 
