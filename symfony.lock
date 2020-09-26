@@ -16,9 +16,6 @@
             "src/Entity/.gitignore"
         ]
     },
-    "brainmaestro/composer-git-hooks": {
-        "version": "v2.8.3"
-    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -210,6 +207,9 @@
     },
     "roave/security-advisories": {
         "version": "dev-master"
+    },
+    "sebastian/cli-parser": {
+        "version": "1.0.0"
     },
     "sebastian/code-unit": {
         "version": "1.0.5"
@@ -517,6 +517,9 @@
     },
     "symfony/serializer": {
         "version": "v5.1.1"
+    },
+    "symfony/serializer-pack": {
+        "version": "v1.0.3"
     },
     "symfony/service-contracts": {
         "version": "v2.0.1"
